@@ -9,10 +9,10 @@ Gem::Specification.new do |gem|
   gem.authors  = ['Colin Thomas-Arnold <colinta@gmail.com>']
 
   gem.description = <<-DESC
-Analizaruptor is a tool that looks 'require', and 'provides' commands (and does
-a *teensy* bit of code analyzing (+/(class|module)\s*(\w+)/+) to provide some
-defaults) to make your RubyMotion +Rakefile+ and +debugger_cmds+ files short and
-consistent.
+Analizaruptor is a tool that looks for 'break', 'require', and 'provides'
+commands (and does a *teensy* bit of code analyzing (+/(class|module)\s*(\w+)/+)
+to provide some defaults) to make your RubyMotion +Rakefile+ and +debugger_cmds+
+files short and consistent.
 
 To use, include this gem, and add +app.analyze+ to your +Rakefile+, after you
 have added your libraries and whatnot.  In your source code you can add
