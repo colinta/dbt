@@ -45,7 +45,7 @@ Motion::Project::App.setup do |app|
     dependers.each do |filename, dependencies|
       if dep = dependencies.find { |dep| ! providers.include? dep }
         puts "\033[1m¡NO HAY!\033[0m \033[1;31m#{dep}\033[0m"
-        raise "Could not find a provider for #{dep}"
+        raise "#{filename} could not find a provider for #{dep}"
       else
         self.files_dependencies filename => dependencies.map{|dep| providers[dep] }
       end
