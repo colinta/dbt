@@ -8,14 +8,17 @@ Motion::Project::App.setup do |app|
 
     files.uniq!
     files.each do |filename|
-      matched = false
-
       File.open(filename, 'r') do |file|
         file.each_line do |line|
-          if line =~ /^#--+>/
-            matched = true
+          command = false
 
+          if line =~ /^#--+>/
             command, dep = line.rstrip.sub(/^#--+> */, '').split(' ', 2)
+          elsif line =~ /^#[ \t]*@(provides|requires)/
+            command, dep = line.rstrip.sub(/^#[ \t]*@/, '').split(' ', 2)
+          end
+
+          if command
             case command
             when 'break'
               dep ||= file.lineno + 1
