@@ -2,21 +2,29 @@ Analizaruptor
 -------------
 
 Analizaruptor is a tool that looks for `break`, `require`, and `provides`
-commands (and does a *teensy* bit of code analyzing (`/(class|module)\s*(\w`)/`)
-to provide some defaults) to make your RubyMotion `Rakefile` and `debugger_cmds`
-files short and consistent.
+commands (and does a *teensy* bit of code analyzing - it will detect VERY basic
+class and module declarations) to make your RubyMotion `Rakefile` and
+`debugger_cmds` files short and consistent.
 
 **CAUTION**: It overwrites the `debugger_cmds` file!
 
 To use, include this gem (`gem 'analizaruptor'`), and add `app.analyze` to your
-`Rakefile`, after you have added your libraries and whatnot.  In your source
-code you can add Analizaruptor commands
+`Rakefile`, after you have added your libraries and whatnot.  It looks at
+`app.files` and scans those files, so I mean it when I say "after you have added
+your libraries and whatnot". In your source code you can add Analizaruptor
+commands
 
 ```ruby
-#----> provides Foo
-#----> requires Bar
-def method
-#----> break
+# @provides Foo
+# @requires Bar
+# older syntax:
+#--> provides Foo
+#--> requires Bar
+def scary_method
+#-----> break
+  doing
+  interesting
+  stuff
 end
 ```
 
@@ -28,6 +36,8 @@ Run `rake` or `rake debug=1`, and off you go!
 The syntax for a command is:
 
 ```regex
+^#[ \t]*@(provides|requires)
+or
 ^#--+> *(break|require|provides)( *(\w+|[0-9]+))?$
 ```
 
