@@ -25,13 +25,13 @@ Motion::Project::App.setup do |app|
               debugger_cmds_output += "break #{File.basename filename}:#{dep}\n"
             when 'provides'
               if providers.key? dep
-                puts "\033[1m¡HAY DEMASIADOS!\033[0m \033[1;31m#{dep}\033[0m"
+                puts "\033[1m!HAY DEMASIADOS!\033[0m \033[1;31m#{dep}\033[0m"
               end
               providers[dep] = filename
             when 'requires'
               dependers[filename] << dep
             else
-              puts "\033[1m¡NO COMPRENDO!\033[0m \"#{command} #{dep}\""
+              puts "\033[1m!NO COMPRENDO!\033[0m \"#{command} #{dep}\""
               puts "\033[1;31m#{filename}:#{file.lineno}\033[0m"
             end
           elsif line =~ /^\s*class\s+(\w+)/
@@ -47,7 +47,7 @@ Motion::Project::App.setup do |app|
 
     dependers.each do |filename, dependencies|
       if dep = dependencies.find { |dep| ! providers.include? dep }
-        puts "\033[1m¡NO HAY!\033[0m \033[1;31m#{dep}\033[0m"
+        puts "\033[1m!NO HAY!\033[0m \033[1;31m#{dep}\033[0m"
         raise "#{filename} could not find a provider for #{dep}"
       else
         self.files_dependencies filename => dependencies.map{|dep| providers[dep] }
