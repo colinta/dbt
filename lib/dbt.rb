@@ -22,7 +22,7 @@ Motion::Project::App.setup do |app|
             case command
             when 'break'
               dep ||= file.lineno + 1
-              debugger_cmds_output += "break #{File.basename filename}:#{dep}\n"
+              debugger_cmds_output += "breakpoint set --file #{File.basename filename} --line #{dep}\n"
             when 'provides'
               if providers.key? dep
                 puts "\033[1m!HAY DEMASIADOS!\033[0m \033[1;31m#{dep}\033[0m"
