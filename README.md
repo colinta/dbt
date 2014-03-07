@@ -15,12 +15,17 @@ your libraries and whatnot". In your source code you add DBT commands:
 
 ```ruby
 # @provides Foo
-# @requires Bar
-def scary_method
+# @requires module:Bar
+class Foo
+  include Bar
+
+  def scary_method
 #-----> break
-  doing
-  interesting
-  stuff
+    doing
+    interesting
+    stuff
+  end
+
 end
 ```
 
@@ -32,6 +37,7 @@ Your files will be grep'd for `^\w*(class|module)`, and these will be registered
 automatically as:
 
 ```ruby
+# you DON'T need to add these 'provides' lines!
 # @provides class:ClassName
 class ClassName
 end
@@ -39,21 +45,39 @@ end
 # @provides module:ModuleName
 class ModuleName
 end
+
+
+# ...in another file...
+# @requires class:ClassName
+# @requires module:ModuleName
+class AnotherClass < ClassName
+  include ModuleName
+end
 ```
 
 So right out of the box, you can add `# @requires class:Foo` if you're having
 trouble with dependencies and want a quick fix without having to add
 `# @provides` declarations all over the place.
 
-The syntax for a command is:
+Breakpoints are created using the syntax `#--> break`, with two or more dashes
+before the `>`. There must not be any whitespace before or after the `#`.
 
-```regex
-^#[ \t]*@(provides|requires)
-or for break points:
-^#--+> *(break)( *(\w+|[0-9]+))?$
+```ruby
+  def method
+    do_something
+#---> break
+    do_dangerous_thing
+  end
+
+# you can also provide a line number
+#--------> break 102
+101:   def method
+102:     do_something
+103:     do_dangerous_thing
+104:   end
 ```
 
-If a line number is given to the `break` command, a breakpoint will be added *at
-that line*, otherwise it will be added to the line below `break`.  It's better to
-insert the `#--> break` where you NEED it, rather than hardcode line numbers,
+If a line number is given to the `break` command, a breakpoint will be added at
+*that* line, otherwise it will be added to the line below `break`.  It's better
+to insert the `#--> break` where you NEED it, rather than hardcode line numbers,
 since line numbers are not constant.
