@@ -2,7 +2,7 @@
 
 Motion::Project::App.setup do |app|
   def app.analyze
-    debugger_cmds_output = "#------> Creado por el Analizarruptor <------#\n"
+    debugger_cmds_output = "#------> Creado por el DBT <------#\n"
     dependers = Hash.new { |hash,key| hash[key] = [] }
     providers = {}
 
