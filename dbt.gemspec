@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.email   = ['colinta@gmail.com']
 
   gem.description = <<-DESC
-==DBT (Dependencies and deBugging Tool) is a tool that helps declare and declare
+== DBT (Dependencies and deBugging Tool) is a tool that helps declare and declare
 dependencies (+app.files_dependencies+), and assists with debugging, in
 RubyMotion project. It looks for 'break', 'requires', and 'provides' commands
 (it does a *teensy* bit of code analyzing to provide some defaults) to make your
