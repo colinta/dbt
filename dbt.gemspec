@@ -11,11 +11,13 @@ Gem::Specification.new do |gem|
   gem.email   = ['colinta@gmail.com']
 
   gem.description = <<-DESC
-DBT (Dependencies and deBugging Tool) is a tool that helps declare dependencies
-(+app.files_dependencies+) and assists with debugging in a RubyMotion project.
-It looks for 'break', 'requires', and 'provides' commands (it does a *teensy*
-bit of code analyzing to provide some defaults) to make your RubyMotion
-+Rakefile+ and +debugger_cmds+ files short and consistent.
+== DBT (Dependencies and deBugging Tool)
+
+DBT is a tool that helps declare dependencies (+app.files_dependencies+) and
+assists with debugging in a RubyMotion project. It looks for 'break',
+'requires', and 'provides' commands (it does a *teensy* bit of code analyzing to
+provide some defaults) to make your RubyMotion +Rakefile+ and +debugger_cmds+
+files short and consistent.
 
 To use, include this gem, and add +app.analyze+ to your +Rakefile+ in the
 <tt>Motion::Project::App.setup</tt> block.  In your source code you can add DBT
