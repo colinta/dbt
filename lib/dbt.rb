@@ -1,12 +1,12 @@
 # coding: utf-8
 
-Motion::Project::App.setup do |app|
-  def app.analyze
+module DBT
+  def analyze(app)
     debugger_cmds_output = "#------> Creado por el DBT <------#\n"
     dependers = Hash.new { |hash,key| hash[key] = [] }
     providers = {}
 
-    files.uniq!
+    files = app.files.flatten.uniq
     files.flatten.each do |filename|
       File.open(filename, 'r') do |file|
         file.each_line do |line|
@@ -50,7 +50,7 @@ Motion::Project::App.setup do |app|
         puts "\033[1m!NO HAY!\033[0m \033[1;31m#{dep}\033[0m"
         raise "#{filename} could not find a provider for #{dep}"
       else
-        self.files_dependencies filename => dependencies.map{|dep| providers[dep] }
+        app.files_dependencies filename => dependencies.map { |dep| providers[dep] }
       end
     end
 
@@ -59,5 +59,13 @@ Motion::Project::App.setup do |app|
         file.write debugger_cmds_output
       end
     end
+  end
+end
+
+
+Motion::Project::App.setup do |app|
+  def app.analyze
+    puts("\033[1mcalling `app.analyze` is deprecated.  Use DBT.analyze(app) instead (non-polluting)\033[0m")
+    DBT.analyze(self)
   end
 end
