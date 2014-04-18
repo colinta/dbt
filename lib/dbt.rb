@@ -7,7 +7,7 @@ Motion::Project::App.setup do |app|
     providers = {}
 
     files.uniq!
-    files.each do |filename|
+    files.flatten.each do |filename|
       File.open(filename, 'r') do |file|
         file.each_line do |line|
           command = false
