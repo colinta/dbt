@@ -1,6 +1,7 @@
 # coding: utf-8
 
 module DBT
+  module_function
   def analyze(app)
     debugger_cmds_output = "#------> Creado por el DBT <------#\n"
     dependers = Hash.new { |hash,key| hash[key] = [] }
