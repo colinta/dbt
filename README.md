@@ -8,7 +8,7 @@ it will detect VERY basic class and module declarations) to make your RubyMotion
 
 **CAUTION**: It overwrites the `debugger_cmds` file!
 
-To use, include this gem (`gem 'depdep'`), and add `app.analyze` to your
+To use, include this gem (`gem 'dbt'`), and add `DBT.analyze(app)` to your
 `Rakefile`, after you have added your libraries and whatnot.  It looks at
 `app.files` and scans those files, so I mean it when I say "after you have added
 your libraries and whatnot". In your source code you add DBT commands:

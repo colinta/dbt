@@ -19,7 +19,7 @@ assists with debugging in a RubyMotion project. It looks for 'break',
 provide some defaults) to make your RubyMotion +Rakefile+ and +debugger_cmds+
 files short and consistent.
 
-To use, include this gem, and add +app.analyze+ to your +Rakefile+ in the
+To use, include this gem, and add +DBT.analyze(app)+ to your +Rakefile+ in the
 <tt>Motion::Project::App.setup</tt> block.  In your source code you can add DBT
 commands and those will be translated into directives for
 +app.files_dependencies+ and +debugger_cmds+.
