@@ -3,7 +3,7 @@
 module DBT
   module_function
   def analyze(app)
-    debugger_cmds_output = "#------> Creado por el DBT <------#\n"
+    debugger_cmds_output = ''
     dependers = Hash.new { |hash,key| hash[key] = [] }
     providers = {}
 
@@ -57,6 +57,7 @@ module DBT
 
     unless debugger_cmds_output.empty?
       File.open('debugger_cmds', 'w') do |file|
+        file.write "#------> Creado por el DBT <------#\n"
         file.write debugger_cmds_output
       end
     end
