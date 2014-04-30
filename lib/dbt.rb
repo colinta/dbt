@@ -48,7 +48,7 @@ module DBT
     end # files
 
     default_providers.each do |dep, filename|
-      providers[key] ||= filename
+      providers[dep] ||= filename
     end
 
     dependers.each do |filename, dependencies|
