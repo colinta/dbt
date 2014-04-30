@@ -15,8 +15,8 @@ module DBT
 
           if line =~ /^#--+>/
             command, dep = line.rstrip.sub(/^#--+> */, '').split(' ', 2)
-          elsif line =~ /^#[ \t]*@(provides|requires)/
-            command, dep = line.rstrip.sub(/^#[ \t]*@/, '').split(' ', 2)
+          elsif line =~ /^[ \t]*#[ \t]*@(provides|requires)/
+            command, dep = line.rstrip.sub(/^[ \t]*#[ \t]*@/, '').split(' ', 2)
           end
 
           if command
@@ -35,10 +35,10 @@ module DBT
               puts "\033[1m!NO COMPRENDO!\033[0m \"#{command} #{dep}\""
               puts "\033[1;31m#{filename}:#{file.lineno}\033[0m"
             end
-          elsif line =~ /^\s*class\s+(\w+)/
+          elsif line =~ /^(\s*)class\s+(\w+)/
             dep = "class:#{$1}"
             providers[dep] = filename
-          elsif line =~ /^\s*module\s+(\w+)/
+          elsif line =~ /^(\s*)module\s+(\w+)/
             dep = "module:#{$1}"
             providers[dep] = filename
           end
