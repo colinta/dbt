@@ -35,10 +35,10 @@ module DBT
               puts "\033[1m!NO COMPRENDO!\033[0m \"#{command} #{dep}\""
               puts "\033[1;31m#{filename}:#{file.lineno}\033[0m"
             end
-          elsif line =~ /^(\s*)class\s+(\w+)/
+          elsif line =~ /^[ \t]*class[ \t]+(\w+)/
             dep = "class:#{$1}"
             providers[dep] = filename
-          elsif line =~ /^(\s*)module\s+(\w+)/
+          elsif line =~ /^[ \t]*module[ \t]+(\w+)/
             dep = "module:#{$1}"
             providers[dep] = filename
           end
