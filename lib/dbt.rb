@@ -6,6 +6,7 @@ module DBT
     debugger_cmds_output = ''
     dependers = Hash.new { |hash,key| hash[key] = [] }
     providers = {}
+    default_providers = {}
 
     files = app.files.flatten.uniq
     files.flatten.each do |filename|
@@ -37,14 +38,18 @@ module DBT
             end
           elsif line =~ /^[ \t]*class[ \t]+(\w+)/
             dep = "class:#{$1}"
-            providers[dep] = filename
+            default_providers[dep] = filename
           elsif line =~ /^[ \t]*module[ \t]+(\w+)/
             dep = "module:#{$1}"
-            providers[dep] = filename
+            default_providers[dep] = filename
           end
         end
       end
     end # files
+
+    default_providers.each do |dep, filename|
+      providers[key] ||= filename
+    end
 
     dependers.each do |filename, dependencies|
       if dep = dependencies.find { |dep| ! providers.include? dep }
