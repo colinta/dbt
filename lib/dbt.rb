@@ -10,7 +10,7 @@ module DBT
 
     files = app.files.flatten.uniq
     files.flatten.each do |filename|
-      File.open(filename, 'r') do |file|
+      File.open(filename, 'r:UTF-8') do |file|
         file.each_line do |line|
           command = false
 
