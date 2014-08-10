@@ -1,11 +1,16 @@
 DBT
 ---
 
-DBT (Dependencies and deBugging Tool) is a tool that looks for `break`,
-`require`, and `provides` commands (and does a *teensy* bit of code analyzing -
-it will detect VERY basic class and module declarations) to make your RubyMotion
-`debugger_cmds` file easy to create, and declaring your file dependencies stupid
-simple.
+DBT (Dependencies and deBugging Tool) is a RubyMotion tool that works for iOS, OSX,
+and Android to detect classes and dependencies. It will declare them in your config
+so you don't have to manually manage them.
+
+# iOS/OSX Dependency Analysis
+
+DBT will look for `break`, `require`, and `provides` commands (and does a *teensy*
+bit of code analyzing - it will detect VERY basic class and module declarations)
+to make your RubyMotion `debugger_cmds` file easy to create, and declaring your file
+dependencies stupid simple.
 
 **CAUTION**: It overwrites the `debugger_cmds` file!
 
@@ -102,6 +107,31 @@ module Foo ; module Bar
 end end
 ```
 
+# Android
+
+In Android, dependencies are handled automatically, but you need to declare your
+`Android::App::Activity` classes in your config. Normally, you'd do something like
+this:
+
+```ruby
+app.sub_activities = [
+  "FirstActivity",
+  "SecondActivity",
+  # etc
+]
+```
+
+With DBT, you can now add these declarations to the top of your activities:
+
+```ruby
+# @activity FirstActivity
+class FirstActivity < Android::App::Activity
+  # ...
+end
+```
+
+That's all the functionality we have for Android at the moment, but it's pretty helpful!
+
 # Breakpoints
 
 Breakpoints are created using the syntax `#--> break`, with two or more dashes
@@ -126,3 +156,11 @@ If a line number is given to the `break` command, a breakpoint will be added at
 *that* line, otherwise it will be added to the line below `break`.  It's better
 to insert the `#--> break` where you NEED it, rather than hardcode line numbers,
 since line numbers are not constant.
+
+# Running Tests
+
+We have two simple test files, so just run them manually.
+
+```sh-session
+$ ruby spec/ios_spec.rb && ruby spec/android_spec.rb
+```
