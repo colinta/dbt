@@ -30,7 +30,8 @@ DESC
   gem.summary = 'Keep your Rakefile and debugger_cmds files short and consistent'
   gem.homepage = 'https://github.com/colinta/dbt'
 
-  gem.files       = `git ls-files`.split($\)
+  gem.files         = Dir.glob("lib/**/*.rb")
+  gem.files         << "README.md"
   gem.require_paths = ['lib']
   gem.test_files  = gem.files.grep(%r{^spec/})
 end
